@@ -1,0 +1,59 @@
+.container {
+  display: flex;
+  padding: 16px 16px 0 16px;
+  background-color: #eee;
+}
+
+.leftCol {
+  padding-right: 10px;
+  flex: 3;
+}
+.rightCol {
+  flex: 2;
+  padding-left: 10px;
+}
+
+.cardContainer {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 2px 2px 5px grey;
+  padding: 12px 24px 12px 24px;
+}
+
+.screen {
+  padding: 0 16px 0 16px;
+  background-color: gray;
+}
+
+.headerItem {
+  align-items: center;
+}
+
+.headerItem h1 {
+  text-align: center;
+}
+
+.headerItem a:hover,
+.headerItem a:focus,
+.headerItem a:active {
+  color: blue;
+}
+.headerContainer {
+  flex: 6;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.topContainer ol {
+  margin-block-start: 0.25em;
+  padding-left: 16px;
+}
+
+.topContainer ol li a {
+  font-size: 12px;
+}
+.topContainer ol li a:hover,
+.topContainer ol li a:focus,
+.topContainer ol li a:active {
+  color: blue;
+}
