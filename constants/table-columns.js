@@ -63,6 +63,12 @@ export const TASKLIST_TABLE_COLUMNS = [
     headerClassName: "column-style",
   },
   {
+    field: "bugId",
+    headerName: "BugId",
+    width: 90,
+    headerClassName: "column-style",
+  },
+  {
     field: "priority",
     headerName: "Priority",
     width: 70,
@@ -81,19 +87,19 @@ export const TASKLIST_TABLE_COLUMNS = [
     editable: true,
   },
   {
-    field: "created_by",
+    field: "createdBy",
     headerName: "Created By",
     width: 110,
     editable: true,
   },
   {
-    field: "assigned_to",
+    field: "assignedTo",
     headerName: "Assigned To",
     width: 110,
     editable: true,
   },
   {
-    field: "finished_by",
+    field: "finishedBy",
     headerName: "Finished By",
     width: 90,
     editable: true,
