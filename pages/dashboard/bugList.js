@@ -11,7 +11,7 @@ export default function bugList() {
   const { data, error } = useSWR("/api/bugs_list", fetcher);
   if (data) {
     console.log("retrieved data", data);
-  }
+    }
   if (error) {
     console.log(error);
   }

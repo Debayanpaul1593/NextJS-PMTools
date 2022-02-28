@@ -1,16 +1,24 @@
-import {getAxiosInstance} from './axiosInstance';
-import {API} from '../../constants';
-export function AuthApi(AuthHeader){
+import { getAxiosInstance } from "./axiosInstance";
+import { API } from "../../constants";
+export function AuthApi(AuthHeader) {
   const defaultHeaders = {
-    'Content-Type':'application/json'
+    "Content-Type": "application/json",
   };
   return {
-    getAllTasks: function(){
+    getAllTasks: function () {
       return getAxiosInstance({
         url: API.authUrls.tasks,
-        method:'GET',
-        headers: {...defaultHeaders}
-      })
-    }
-  }
+        method: "GET",
+        headers: { ...defaultHeaders },
+      });
+    },
+    saveTask: function (data) {
+      return getAxiosInstance({
+        url: API.authUrls.tasks,
+        method: "POST",
+        headers: { ...defaultHeaders },
+        data
+      });
+    },
+  };
 }
