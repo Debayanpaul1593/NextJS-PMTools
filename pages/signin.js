@@ -1,12 +1,22 @@
-sierraimport Head from "next/head";
+import Head from "next/head";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useState } from "react";
+import { UnauthApi, storeAsString, store } from "../services";
+import Router from 'next/router';
 export default function singin() {
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);
   function handleSubmit() {
     console.log(username, password);
+    UnauthApi()
+      .login({ username, password })
+      .then((res) => {
+        console.log(res);
+        store('token', res?.token?.token);
+        Router.push('/dashboard');
+      })
+      .catch((err) => console.log(err));
   }
   return (
     <div className="container">
