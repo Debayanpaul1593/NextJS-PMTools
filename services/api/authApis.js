@@ -20,5 +20,12 @@ export function AuthApi(AuthHeader) {
         data
       });
     },
+    getUsers: function () {
+      return getAxiosInstance({
+        url: API.authUrls.users,
+        method: "GET",
+        headers: { ...defaultHeaders },
+      });
+    },
   };
 }

@@ -1,16 +1,19 @@
+import { useState, useEffect } from "react";
 import { Formik } from "formik";
 import { TextField, Button } from "@mui/material";
 import { DatePicker } from "@mui/lab";
 import { AuthApi } from "../../services/api/authApis";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import Select from "react-select";
+import { pick, propEq, find } from "ramda";
 export default function createTask() {
   const initialValues = {
     priority: "1",
     sprint: "Sprint1",
     name: "Create a page for taskslist",
     description: "This and this",
-    createdBy: "61fadac85bcee0c42e3c803a",
+    createdBy: "",
     assignedTo: "6218e9c45b5ca3f0f99ac404",
     finishedBy: "6218e9c45b5ca3f0f99ac404",
     est: "8",
@@ -19,13 +22,51 @@ export default function createTask() {
     deadline: "17-01-2022",
     status: "Waiting",
   };
+  const sampleUsers = [
+    { value: "debayan", label: "Debayan" },
+    { value: "sourav", label: "Sourav" },
+    { value: "akshansh", label: "Akshansh" },
+  ];
+  const [users, setUsers] = useState(null);
+  const [usersImm, setUsersImm] = useState(null);
+  useEffect(() => {
+    AuthApi()
+      .getUsers()
+      .then((res) => {
+        console.log(res);
+        setUsersImm(res?.data);
+        setUsers(
+          res?.data?.map((item) => ({
+            label: item?.username,
+            value: item?.username,
+          }))
+        );
+      })
+      .catch(console.log);
+  }, []);
+
+  function getUserDetails(name) {
+    usersImm.forEach((item) => {
+      if (item.username === name) {
+        return {
+          username: item.username,
+          _id: item?._id,
+        };
+      }
+    });
+    return {};
+  }
   return (
     <div>
       <Formik
         {...{ initialValues }}
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
-            console.log(values);
+            let nvalues = values;
+            nvalues.createdBy = getUserDetails(values.createdBy);
+            nvalues.assignedTo = getUserDetails(values.assignedTo);
+            nvalues.finishedBy = getUserDetails(values.finishedBy);
+            console.log(nvalues);
             AuthApi()
               .saveTask(values)
               .then((res) => console.log(res))
@@ -43,7 +84,7 @@ export default function createTask() {
           handleBlur,
           handleSubmit,
           isSubmitting,
-          setFieldValue
+          setFieldValue,
         }) => (
           <form onSubmit={handleSubmit} className="formItems">
             <TextField
@@ -81,31 +122,44 @@ export default function createTask() {
               onChange={handleChange("description")}
               className="fieldStyle"
             />
-            <TextField
-              id="outline-basic"
-              label="Created By"
-              variant="outlined"
-              type="text"
+            <Select
+              title="Created By"
+              name="form-field-name"
+              //onSelect={(val) => {
               value={values.createdBy}
-              onChange={handleChange("createdBy")}
-              className="fieldStyle"
+              options={users}
+              onSelect={(val) => {
+                console.log(val);
+                setFieldValue("createdBy", e.value);
+              }}
+              onChange={(e) => setFieldValue("createdBy", e)}
+              className="dropDown"
             />
-            <TextField
-              id="outline-basic"
-              label="Assigned To"
-              type="text"
+            <Select
+              title="Created By"
+              name="form-field-name"
+              //onSelect={(val) => {
               value={values.assignedTo}
-              onChange={handleChange("assignedTo")}
-              className="fieldStyle"
+              options={users}
+              onSelect={(val) => {
+                console.log(val);
+                setFieldValue("assignedTo", e.value);
+              }}
+              onChange={(e) => setFieldValue("assignedTo", e)}
+              className="dropDown"
             />
-            <TextField
-              id="outline-basic"
-              label="Finished By"
-              variant="outlined"
-              type="text"
+            <Select
+              title="Created By"
+              name="form-field-name"
+              //onSelect={(val) => {
               value={values.finishedBy}
-              onChange={handleChange("finishedBy")}
-              className="fieldStyle"
+              options={users}
+              onSelect={(val) => {
+                console.log(val);
+                setFieldValue("finishedBy", e.value);
+              }}
+              onChange={(e) => setFieldValue("finishedBy", e)}
+              className="dropDown"
             />
             <TextField
               id="outline-basic"
@@ -195,6 +249,10 @@ export default function createTask() {
         .itemContainer {
           display: flex;
           flex-direction: column;
+        }
+
+        .dropDown {
+          height: 55px;
         }
       `}</style>
     </div>

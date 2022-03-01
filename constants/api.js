@@ -8,7 +8,8 @@ export const API = {
   authUrls: {
     dashboard: "/dashboard",
     tasks:'/tasks',
-    bugs:'/bugs'
+    bugs:'/bugs',
+    users:'/users'
   },
   unauthUrls: {
     login: "/login",
