@@ -1,11 +1,18 @@
 import { useState, useEffect } from "react";
 import { Formik } from "formik";
-import { TextField, Button } from "@mui/material";
+import {
+  TextField,
+  Button,
+  Select,
+  InputLabel,
+  MenuItem,
+  FormControl,
+  Box,
+} from "@mui/material";
 import { DatePicker } from "@mui/lab";
 import { AuthApi } from "../../services/api/authApis";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
-import Select from "react-select";
 import { pick, propEq, find } from "ramda";
 export default function createTask() {
   const initialValues = {
@@ -48,7 +55,7 @@ export default function createTask() {
   function getUserDetails(name) {
     let user = {};
     usersImm.forEach((item) => {
-      if (item.username === name.value) {
+      if (item.username === name) {
         user = {
           username: item.username,
           _id: item?._id,
@@ -124,46 +131,66 @@ export default function createTask() {
               onChange={handleChange("description")}
               className="fieldStyle"
             />
-            <label className="custom-label">Created By</label>
-            <Select
-              title="Created By"
-              name="form-field-name"
-              //onSelect={(val) => {
-              value={values.createdBy}
-              options={users}
-              onSelect={(val) => {
-                console.log(val);
-                setFieldValue("createdBy", e.value);
-              }}
-              onChange={(e) => setFieldValue("createdBy", e)}
-              className="dropDown"
-            />
-            <Select
-              title="Created By"
-              name="form-field-name"
-              //onSelect={(val) => {
-              value={values.assignedTo}
-              options={users}
-              onSelect={(val) => {
-                console.log(val);
-                setFieldValue("assignedTo", e.value);
-              }}
-              onChange={(e) => setFieldValue("assignedTo", e)}
-              className="dropDown"
-            />
-            <Select
-              title="Created By"
-              name="form-field-name"
-              //onSelect={(val) => {
-              value={values.finishedBy}
-              options={users}
-              onSelect={(val) => {
-                console.log(val);
-                setFieldValue("finishedBy", e.value);
-              }}
-              onChange={(e) => setFieldValue("finishedBy", e)}
-              className="dropDown"
-            />
+            <Box sx={{ minWidth: 120 }}>
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">
+                  Created By
+                </InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={values.createdBy}
+                  label="Created By"
+                  onChange={handleChange("createdBy")}
+                >
+                  {users?.map((item, index) => (
+                    <MenuItem value={item.value} key={index.toString()}>
+                      {item.label}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Box>
+            <Box sx={{ minWidth: 120 }}>
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">
+                 Assigned To 
+                </InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={values.assignedTo}
+                  label="Assigned To"
+                  onChange={handleChange("assignedTo")}
+                >
+                  {users?.map((item, index) => (
+                    <MenuItem value={item.value} key={index.toString()}>
+                      {item.label}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Box>
+            <Box sx={{ minWidth: 120 }}>
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">
+                  Finished By
+                </InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={values.finishedBy}
+                  label="finishedBy By"
+                  onChange={handleChange("finishedBy")}
+                >
+                  {users?.map((item, index) => (
+                    <MenuItem value={item.value} key={index.toString()}>
+                      {item.label}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Box>
             <TextField
               id="outline-basic"
               label="est"
@@ -208,11 +235,7 @@ export default function createTask() {
               onChange={handleChange("status")}
               className="fieldStyle"
             />
-            <Button
-              variant="contained"
-              style={{ marginTop: 48, marginBottom: 20 }}
-              onClick={handleSubmit}
-            >
+            <Button variant="contained" onClick={handleSubmit}>
               Create Task
             </Button>
           </form>
@@ -237,9 +260,6 @@ export default function createTask() {
         .fieldStyle {
           margin-top: 20vh;
         }
-        .css-1u3bzj6-MuiFormControl-root-MuiTextField-root {
-          margin-top: 20px;
-        }
         .cardContainer {
           background-color: white;
           border-radius: 10px;
@@ -256,42 +276,6 @@ export default function createTask() {
 
         .dropDown {
           height: 55px;
-        }
-
-        .custom-label {
-          color: rgba(0, 0, 0, 0.6);
-          font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-          font-weight: 400;
-          font-size: 1rem;
-          line-height: 1.4375em;
-          letter-spacing: 0.00938em;
-          padding: 0;
-          position: relative;
-          display: block;
-          transform-origin: top left;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          max-width: calc(133% - 24px);
-          position: absolute;
-          left: 0;
-          top: 0;
-          -webkit-transform: translate(14px, -9px) scale(0.75);
-          -moz-transform: translate(14px, -9px) scale(0.75);
-          -ms-transform: translate(14px, -9px) scale(0.75);
-          transform: translate(14px, -9px) scale(0.75);
-          -webkit-transition: color 200ms cubic-bezier(0, 0, 0.2, 1) 0ms,
-            -webkit-transform 200ms cubic-bezier(0, 0, 0.2, 1) 0ms,
-            max-width 200ms cubic-bezier(0, 0, 0.2, 1) 0ms;
-          transition: color 200ms cubic-bezier(0, 0, 0.2, 1) 0ms,
-            transform 200ms cubic-bezier(0, 0, 0.2, 1) 0ms,
-            max-width 200ms cubic-bezier(0, 0, 0.2, 1) 0ms;
-          z-index: 1;
-          pointer-events: auto;
-          -webkit-user-select: none;
-          -moz-user-select: none;
-          -ms-user-select: none;
-          user-select: none;
         }
       `}</style>
     </div>
