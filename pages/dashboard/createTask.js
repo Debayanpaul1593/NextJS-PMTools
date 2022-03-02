@@ -46,15 +46,16 @@ export default function createTask() {
   }, []);
 
   function getUserDetails(name) {
+    let user = {};
     usersImm.forEach((item) => {
-      if (item.username === name) {
-        return {
+      if (item.username === name.value) {
+        user = {
           username: item.username,
           _id: item?._id,
         };
       }
     });
-    return {};
+    return user;
   }
   return (
     <div>
@@ -62,6 +63,7 @@ export default function createTask() {
         {...{ initialValues }}
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
+            console.log("values", values);
             let nvalues = values;
             nvalues.createdBy = getUserDetails(values.createdBy);
             nvalues.assignedTo = getUserDetails(values.assignedTo);
@@ -122,6 +124,7 @@ export default function createTask() {
               onChange={handleChange("description")}
               className="fieldStyle"
             />
+            <label className="custom-label">Created By</label>
             <Select
               title="Created By"
               name="form-field-name"
@@ -254,7 +257,44 @@ export default function createTask() {
         .dropDown {
           height: 55px;
         }
+
+        .custom-label {
+          color: rgba(0, 0, 0, 0.6);
+          font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+          font-weight: 400;
+          font-size: 1rem;
+          line-height: 1.4375em;
+          letter-spacing: 0.00938em;
+          padding: 0;
+          position: relative;
+          display: block;
+          transform-origin: top left;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          max-width: calc(133% - 24px);
+          position: absolute;
+          left: 0;
+          top: 0;
+          -webkit-transform: translate(14px, -9px) scale(0.75);
+          -moz-transform: translate(14px, -9px) scale(0.75);
+          -ms-transform: translate(14px, -9px) scale(0.75);
+          transform: translate(14px, -9px) scale(0.75);
+          -webkit-transition: color 200ms cubic-bezier(0, 0, 0.2, 1) 0ms,
+            -webkit-transform 200ms cubic-bezier(0, 0, 0.2, 1) 0ms,
+            max-width 200ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+          transition: color 200ms cubic-bezier(0, 0, 0.2, 1) 0ms,
+            transform 200ms cubic-bezier(0, 0, 0.2, 1) 0ms,
+            max-width 200ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+          z-index: 1;
+          pointer-events: auto;
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
+          user-select: none;
+        }
       `}</style>
     </div>
   );
 }
+
