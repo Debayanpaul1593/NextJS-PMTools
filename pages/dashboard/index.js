@@ -51,19 +51,12 @@ const headerItems = [
 // }
 
 export async function getStaticProps() {
-  const res = await fetch(
-    "https://jsonplaceholder.typicode.com/posts?_limit=6"
-  );
-  const articles = await res.json();
   return {
-    props: {
-      articles,
-    },
+    props: {},
   };
 }
 
-export default function dashboard({ articles }) {
-  console.log(articles);
+export default function dashboard({}) {
   return (
     <div>
       <Nav />

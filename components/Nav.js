@@ -11,6 +11,9 @@ export default function Nav() {
         <li>
           <Link href="/about">About</Link>
         </li>
+        <li>
+          <Link href="/signin" replace={true}>Logout</Link>
+        </li>
       </ul>
     </div>
   );

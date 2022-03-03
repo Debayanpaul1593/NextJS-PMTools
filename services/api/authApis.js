@@ -27,5 +27,12 @@ export function AuthApi(AuthHeader) {
         headers: { ...defaultHeaders },
       });
     },
+    getAllBugs: function () {
+      return getAxiosInstance({
+        url: API.authUrls.bugs,
+        method: "GET",
+        headers: { ...defaultHeaders },
+      });
+    },
   };
 }

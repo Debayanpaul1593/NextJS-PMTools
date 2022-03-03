@@ -30,19 +30,25 @@ export const BUGLIST_TABLE_COLUMNS = [
     editable: true,
   },
   {
-    field: "created_by",
+    field: "description",
+    headerName: "Description",
+    width: 300,
+    editable: true,
+  },
+  {
+    field: "createdBy",
     headerName: "Created By",
     width: 110,
     editable: true,
   },
   {
-    field: "assigned_to",
+    field: "assignedTo",
     headerName: "Assigned To",
     width: 110,
     editable: true,
   },
   {
-    field: "resolved_by",
+    field: "resolvedBy",
     headerName: "Resolved By",
     width: 110,
     editable: true,
