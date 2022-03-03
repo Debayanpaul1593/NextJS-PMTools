@@ -18,13 +18,13 @@ export default function bugList() {
           res.map((item, index) => {
             console.log(item);
             item.id = index.toString();
-            const { createdBy, assignedTo, resolvedBy} = item;
+            const { createdBy, assignedTo, resolvedBy } = item;
             delete item.createdBy;
             delete item.assignedTo;
             delete item.finishedBy;
             item.createdBy = createdBy?.username ?? createdBy;
             item.assignedTo = assignedTo?.username ?? assignedTo;
-            item.resolvedBy= resolvedBy?.username ?? resolvedBy;
+            item.resolvedBy = resolvedBy?.username ?? resolvedBy;
             return item;
           })
         );
@@ -40,6 +40,7 @@ export default function bugList() {
         rowsPerPageOptions={[5]}
         checkboxSelection
         disableSelectionOnClick
+        onCellClick={(params) => console.log(params)}
       />
       <style jsx>
         {`
