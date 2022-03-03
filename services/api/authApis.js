@@ -27,9 +27,9 @@ export function AuthApi(AuthHeader) {
         headers: { ...defaultHeaders },
       });
     },
-    getAllBugs: function () {
+    getAllBugs: function (path = '') {
       return getAxiosInstance({
-        url: API.authUrls.bugs,
+        url: API.authUrls.bugs + path,
         method: "GET",
         headers: { ...defaultHeaders },
       });
