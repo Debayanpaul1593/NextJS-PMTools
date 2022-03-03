@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Link from "next/link";
 import Nav from "../../components/Nav";
 import dashboardStyles from "../../styles/Dashboard.module.css";
 import layoutStyles from "../../styles/Layout.module.css";
@@ -89,6 +90,9 @@ export default function dashboard({ articles }) {
                       <li>
                         <a>Create a story</a>
                       </li>
+                      <Link href="/dashboard/createTask">
+                        <a>Create a task</a>
+                      </Link>
                     </ol>
                   </div>
                 </div>
@@ -96,12 +100,14 @@ export default function dashboard({ articles }) {
                   {headerItems.map(({ k, v, link }, index) => (
                     <div
                       className={dashboardStyles.headerItem}
-                      index={index.toString()}
+                      key={index.toString()}
                     >
                       <p>{k}</p>
-                      <a href={link}>
-                        <h1>{v}</h1>
-                      </a>
+                      <Link href={link}>
+                        <a>
+                          <h1>{v}</h1>
+                        </a>
+                      </Link>
                     </div>
                   ))}
                 </div>

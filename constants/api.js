@@ -13,5 +13,6 @@ export const API = {
   },
   unauthUrls: {
     login: "/login",
+    forgotPassword: "/forgot_password",
   },
 };

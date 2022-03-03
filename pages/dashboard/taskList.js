@@ -5,9 +5,16 @@ import { assoc, map } from "ramda";
 import useSWR from "swr";
 import { TASKLIST_TABLE_COLUMNS } from "../../constants";
 import { AuthApi } from "../../services/api/authApis";
-const disableEdit = map(assoc("editable", false));
-const READONLY_COLUMNS = disableEdit(TASKLIST_TABLE_COLUMNS);
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
+import { useAuthHook } from "../../services/useAuthHook";
+import Router from "next/router";
+const READONLY_COLUMNS = TASKLIST_TABLE_COLUMNS;
+import { requireAuthentication, load } from "../../services";
+
+export async function getServerSideProps(context) {
+  return {
+    props: {},
+  };
+}
 export default function tasksList({ ...props }) {
   //const { data, error } = useSWR("/api/tasks_list", fetcher);
   //if (data) {
@@ -16,6 +23,10 @@ export default function tasksList({ ...props }) {
   //if (error) {
   //console.log(error);
   //}
+  const isAuth = useAuthHook();
+  console.log(">> is Auth", isAuth);
+  if (!isAuth) {
+  }
   const [data, setData] = useState([]);
   useEffect(() => {
     AuthApi()

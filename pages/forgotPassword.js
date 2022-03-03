@@ -1,3 +1,4 @@
+
 import Head from "next/head";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -5,20 +6,18 @@ import { useState } from "react";
 import { UnauthApi, storeAsString, store } from "../services";
 import Router from "next/router";
 import Link from "next/link";
-export default function singin() {
+export default function forgotPassword() {
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);
   function handleSubmit() {
     console.log(username, password);
     UnauthApi()
-      .login({ username, password })
+      .forgotPassword({ username, password })
       .then((res) => {
-        console.log(res);
-        console.log(">> storing token", res?.token?.token);
-        localStorage.setItem("token", res?.token?.token);
-        Router.push("/dashboard");
+        alert(res?.message);
+        Router.push("/signin");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => alert(err));
   }
   return (
     <div className="container">
@@ -27,7 +26,7 @@ export default function singin() {
       </Head>
 
       <div className="cardContainer">
-        <h1 style={{ textAlign: "center" }}>SignIn</h1>
+        <h1 style={{ textAlign: "center" }}>Forgot Password</h1>
         <div className="itemContainer">
           <TextField
             id="outlined-basic"
@@ -39,24 +38,19 @@ export default function singin() {
           />
           <TextField
             id="outlined-basic"
-            label="Password"
+            label="New Password"
             variant="outlined"
             type="password"
             style={{ marginTop: 24 }}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <div style={{ alignItems:'center', marginTop:20}}>
-            <Link href="/forgotPassword">
-              <a style={{color:'blue'}}>Forgot Password?</a>
-            </Link>
-          </div>
           <Button
             variant="contained"
             style={{ marginTop: 48, marginBottom: 20 }}
             onClick={handleSubmit}
           >
-            SignIn
+           Set Password 
           </Button>
         </div>
       </div>

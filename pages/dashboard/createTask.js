@@ -14,26 +14,29 @@ import { AuthApi } from "../../services/api/authApis";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import { pick, propEq, find } from "ramda";
-export default function createTask() {
+import { requireAuthentication, load } from "../../services";
+
+export const getServerSideProps = requireAuthentication(async (context) => {
+  return {
+    props: {},
+  };
+});
+
+export default function createTask({}) {
   const initialValues = {
-    priority: "1",
-    sprint: "Sprint1",
-    name: "Create a page for taskslist",
-    description: "This and this",
+    priority: "",
+    sprint: "",
+    name: "",
+    description: "",
     createdBy: "",
-    assignedTo: "6218e9c45b5ca3f0f99ac404",
-    finishedBy: "6218e9c45b5ca3f0f99ac404",
-    est: "8",
+    assignedTo: "",
+    finishedBy: "",
+    est: "",
     cost: "",
     left: "",
-    deadline: "17-01-2022",
-    status: "Waiting",
+    deadline: "",
+    status: "",
   };
-  const sampleUsers = [
-    { value: "debayan", label: "Debayan" },
-    { value: "sourav", label: "Sourav" },
-    { value: "akshansh", label: "Akshansh" },
-  ];
   const [users, setUsers] = useState(null);
   const [usersImm, setUsersImm] = useState(null);
   useEffect(() => {
@@ -97,7 +100,6 @@ export default function createTask() {
         }) => (
           <form onSubmit={handleSubmit} className="formItems">
             <TextField
-              id="outline-basic"
               label="Priority"
               type="text"
               value={values.priority}
@@ -105,7 +107,6 @@ export default function createTask() {
               className="fieldStyle"
             />
             <TextField
-              id="outline-basic"
               label="Sprint"
               variant="outlined"
               type="text"
@@ -114,7 +115,6 @@ export default function createTask() {
               className="fieldStyle"
             />
             <TextField
-              id="outline-basic"
               label="Name"
               variant="outlined"
               type="text"
@@ -123,7 +123,6 @@ export default function createTask() {
               className="fieldStyle"
             />
             <TextField
-              id="outline-basic"
               label="Description"
               variant="outlined"
               type="text"
@@ -154,7 +153,7 @@ export default function createTask() {
             <Box sx={{ minWidth: 120 }}>
               <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">
-                 Assigned To 
+                  Assigned To
                 </InputLabel>
                 <Select
                   labelId="demo-simple-select-label"
@@ -192,7 +191,6 @@ export default function createTask() {
               </FormControl>
             </Box>
             <TextField
-              id="outline-basic"
               label="est"
               variant="outlined"
               type="text"
@@ -201,7 +199,6 @@ export default function createTask() {
               className="fieldStyle"
             />
             <TextField
-              id="outline-basic"
               label="Cost"
               variant="outlined"
               type="text"
@@ -210,7 +207,6 @@ export default function createTask() {
               className="fieldStyle"
             />
             <TextField
-              id="outline-basic"
               label="Left"
               variant="outlined"
               type="text"
@@ -227,7 +223,6 @@ export default function createTask() {
               />
             </LocalizationProvider>
             <TextField
-              id="outline-basic"
               label="status"
               variant="outlined"
               type="text"
@@ -281,4 +276,3 @@ export default function createTask() {
     </div>
   );
 }
-

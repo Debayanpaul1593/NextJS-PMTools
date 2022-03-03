@@ -12,8 +12,11 @@ export function storeAsString(key, val){
 
 export function loadAsString(key){
   try{
-    return localStorage.getItem(key);
-  }catch{
+    const item = localStorage.getItem(key);
+    console.log('>> retrieved item', item);
+    return item;
+  }catch(err){
+    console.log('>>storage error', err);
     return false;
   }
 }

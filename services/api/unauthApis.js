@@ -12,6 +12,14 @@ export function UnauthApi(){
         headers: {...defaultHeaders},
         data
       })
+    },
+    forgotPassword: function(data){
+      return getAxiosInstance({
+        url: API.unauthUrls.forgotPassword,
+        method:'POST',
+        headers: {...defaultHeaders},
+        data
+      })
     }
   }
 }
